@@ -2,25 +2,41 @@ const express= require("express");
 const bodyParser= require("body-parser");
 const cors=require("cors");
 
+
+
 const app=express();
+const swaggerUi=require('swagger-ui-express');
+const swaggerDocument=require('./swagger.json');
+
+
+
 var corsOptions = {
     origin: "http://localhost:8081"
   };
-  
-  app.use(cors(corsOptions));
+ 
+
+app.use(cors(corsOptions));
   
   // parse requests of content-type - application/json
-  app.use(bodyParser.json());
+app.use(bodyParser.json());
   
   // parse requests of content-type - application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const db = require("./app/models");
+db.sequelize.sync();
+
   
   // simple route
   app.get("/", (req, res) => {
-    res.json({ message: "Welcome to sequelize node js application." });
+    res.json({ message: "Welcome to REST API NOI timeline application." });
   });
   
   // set port, listen for requests
+  require("./app/routes/routes.js")(app);
+
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
   const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
