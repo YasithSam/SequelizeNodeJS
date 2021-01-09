@@ -1,0 +1,159 @@
+{
+    "swagger": "2.0",
+    "info": {
+    "version": "1.0.0", 
+    "title": "Timeline CRUD API",
+    "description": "Timeline CRUD Application API",
+    "license": {
+    "name": "MIT",
+    "url": "https://opensource.org/licenses/MIT"
+    }
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "tags": [
+    {
+    "name": "Events",
+    "description": "API for events in the system"
+    }
+    ],
+    "schemes": [
+    "http"
+    ],
+    "consumes": [
+    "application/json"
+    ],
+    "produces": [
+    "application/json"
+    ],
+    "paths": {
+        "/api/events": {
+          "post": {
+            "tags": ["Events"],
+            "consumes": "application/json",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "event",
+                "schema": {
+                  "type": "object",
+                  "properties":{
+                      "title":{
+                          "type":"string"
+                      },
+                      "description":{
+                        "type":"string"
+                      }
+                    }
+
+                      
+                  
+                }
+              }
+            ],
+            "summary": "Add a new event",
+    
+            "responses": {
+              "201": {
+                "description": "Created",
+                "content": "text"
+              },
+              "404": {
+                "description": "ERROR",
+                "content": "text"
+              }
+            }
+          },
+          "get": {
+            "tags": ["Events"],
+            "summary": "Get all events on timeline",
+            "responses": {
+              "200": {
+                "description": "OK",
+                "content": "application/json"
+            
+              }
+            }
+          },
+          "delete": {
+            "summary": "Delete all users",
+            "tags": ["Events"],
+            "responses": {
+              "200": {
+                "description": "All Users are deleted"
+               
+              }
+            }
+          } 
+        },
+        "/api/events/{id}":{
+            "parameters": [
+                {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "description": "ID of the event",
+                  "type": "integer"
+                }
+              ],
+            
+              "delete": {
+                "summary": "Delete event with given ID",
+                "tags": ["Events"],
+               
+                "responses": {
+                  "200": {
+                    "description": "Event is deleted"
+                    
+                  }
+                }
+              },
+              "put": {
+                "summary": "Update event with give ID",
+                "tags": ["Events"],
+                "parameters": [
+                  {
+                    "name": "event",
+                    "in": "body",
+                    "description": "Event with new values of properties",
+                    "schema": {
+                        "type": "object",
+                        "properties":{
+                            "title":{
+                                "type":"string"
+                            },
+                            "description":{
+                              "type":"string"
+                            }
+                        }
+                    }
+                }  
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Event is updated"
+                   
+                  }
+                }
+              },
+              "get": {
+                "tags": ["Events"],
+                "summary": "Get an event with given id on timeline",
+                "responses": {
+                  "200": {
+                    "description": "OK",
+                    "content": "application/json"
+                
+                  }
+                }
+              }
+
+
+        }
+
+
+        
+        
+    }    
+    
+}    
